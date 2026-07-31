@@ -1,0 +1,14 @@
+{
+  "name": "@zymocars/zymo-shared",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Shared TypeScript source of truth for Zymo Cloud Functions repos.",
+  "main": "schemas/bookingDoc.ts",
+  "types": "schemas/bookingDoc.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0"
+  }
+}
