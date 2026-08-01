@@ -1,0 +1,38 @@
+{
+  "_description": "Zero-Bug Architecture Chunk 17 — writable-fields whitelist for CarsPaymentSuccessDetails (booking) documents. Source of truth for BOTH firestore.rules AND client-side pre-write validators. Preventing Session 104-class whitelist drift.",
+  "_provenance": "Extracted 2026-08-01 from zymo-backend/firestore.rules lines 143-180.",
+  "_kept_field_reason": {
+    "tripImages": "client-side upload path — image URLs added post-trip",
+    "Cancelled": "booking-lifecycle cancel-marker flag written from client cancel UI",
+    "CancellationDate": "sibling to Cancelled",
+    "UserId": "self-owner enforcement — must match request.auth.uid",
+    "MigratedFrom": "one-time migration marker",
+    "MigratedAt": "one-time migration marker",
+    "paymentStatus": "client reflects post-payment state — backend Cashfree webhook is authoritative",
+    "paymentCompletedAt": "sibling to paymentStatus",
+    "paymentId": "sibling to paymentStatus",
+    "ga_client_id": "attribution stitching from client",
+    "ga_session_id": "attribution stitching from client",
+    "ga_source": "attribution stitching from client",
+    "zoomcarConfirmationCode": "ZoomCar handoff — client writes returned confirmation"
+  },
+  "affectedKeysWhitelist": [
+    "tripImages",
+    "Cancelled",
+    "CancellationDate",
+    "UserId",
+    "MigratedFrom",
+    "MigratedAt",
+    "paymentStatus",
+    "paymentCompletedAt",
+    "paymentId",
+    "ga_client_id",
+    "ga_session_id",
+    "ga_source",
+    "zoomcarConfirmationCode"
+  ],
+  "excludedByDesign": {
+    "postTripCharges": "Session 104 — writes now go via partnerSubmitPostTripCharge callable (admin SDK, rule bypass). Direct client writes MUST fail closed.",
+    "tripPhotos": "Session 104 — writes now go via partnerUploadTripPhotos callable. Direct client writes MUST fail closed."
+  }
+}
