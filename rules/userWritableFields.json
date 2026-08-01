@@ -1,0 +1,15 @@
+{
+  "_description": "Writable-fields whitelist for /users/{userId} documents (validUserData helper).",
+  "_provenance": "Extracted 2026-08-01 from zymo-backend/firestore.rules line 30.",
+  "_ruleExtractRegex": "function validUserData\\(data\\) \\{[\\s\\S]*?keys\\(\\)\\.hasOnly\\(\\[([\\s\\S]*?)\\]\\)",
+  "affectedKeysWhitelist": [
+    "name",
+    "email",
+    "phone",
+    "dob",
+    "street1",
+    "street2",
+    "city",
+    "zipcode"
+  ]
+}

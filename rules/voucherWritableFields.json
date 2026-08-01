@@ -1,0 +1,12 @@
+{
+  "_description": "Writable-fields whitelist for voucher documents (validVoucher helper).",
+  "_provenance": "Extracted 2026-08-01 from zymo-backend/firestore.rules line 38.",
+  "_ruleExtractRegex": "function validVoucher\\(data\\) \\{[\\s\\S]*?keys\\(\\)\\.hasOnly\\(\\[([\\s\\S]*?)\\]\\)",
+  "affectedKeysWhitelist": [
+    "amount",
+    "validFrom",
+    "validTill",
+    "validFor",
+    "id"
+  ]
+}

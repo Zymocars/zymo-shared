@@ -1,6 +1,7 @@
 {
   "_description": "Zero-Bug Architecture Chunk 17 — writable-fields whitelist for CarsPaymentSuccessDetails (booking) documents. Source of truth for BOTH firestore.rules AND client-side pre-write validators. Preventing Session 104-class whitelist drift.",
   "_provenance": "Extracted 2026-08-01 from zymo-backend/firestore.rules lines 143-180.",
+  "_ruleExtractRegex": "affectedKeys\\(\\)\\.hasOnly\\(\\[([\\s\\S]*?)\\]\\)",
   "_kept_field_reason": {
     "tripImages": "client-side upload path — image URLs added post-trip",
     "Cancelled": "booking-lifecycle cancel-marker flag written from client cancel UI",
