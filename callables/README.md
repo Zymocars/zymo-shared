@@ -6,7 +6,7 @@ zymo-web) `import type { ... }` from these files for type-checking. Backend
 runtime is JS/CJS and does not import these — but MUST keep runtime shape
 in sync.
 
-## Migration status (18 total callables — 18/18 complete)
+## Migration status (20 total callables — 20/20 complete)
 
 | Callable | Backend file:line | TS types |
 |---|---|---|
@@ -28,6 +28,8 @@ in sync.
 | adminForceLifetimeResetCar | monthlyCancelV2Callables.js:270 | ✅ adminForceLifetimeResetCar.ts |
 | adminRollbackMonthlyCancel | monthlyCancelV2Callables.js:302 | ✅ adminRollbackMonthlyCancel.ts |
 | deleteDuplicateAccounts | deleteaccounts.js:17 | ✅ deleteDuplicateAccounts.ts |
+| adminSetRejectedCarCleanupEnabled | rejectedCarCleanupScheduler.js:123 | ✅ adminSetRejectedCarCleanupEnabled.ts |
+| adminRunRejectedCarCleanupNow | rejectedCarCleanupScheduler.js:161 | ✅ adminRunRejectedCarCleanupNow.ts |
 
 Enumerated + fully migrated 2026-08-01. Update this table whenever a callable
 is added, removed, or renamed in `zymo-backend/functions/`.
