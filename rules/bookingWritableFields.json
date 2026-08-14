@@ -15,7 +15,9 @@
     "ga_client_id": "attribution stitching from client",
     "ga_session_id": "attribution stitching from client",
     "ga_source": "attribution stitching from client",
-    "zoomcarConfirmationCode": "ZoomCar handoff — client writes returned confirmation"
+    "zoomcarConfirmationCode": "ZoomCar handoff — client writes returned confirmation",
+    "partnerReviewRating": "2026-08-14 Finding-#1 fix — Zymo-Partner/src/pages/Bookings.tsx:824 writes vendor's post-trip customer rating (integer 1-5, server-time only, first-write only per firestore.rules invariants).",
+    "partnerReviewedAt": "sibling to partnerReviewRating"
   },
   "affectedKeysWhitelist": [
     "tripImages",
@@ -30,7 +32,9 @@
     "ga_client_id",
     "ga_session_id",
     "ga_source",
-    "zoomcarConfirmationCode"
+    "zoomcarConfirmationCode",
+    "partnerReviewRating",
+    "partnerReviewedAt"
   ],
   "excludedByDesign": {
     "postTripCharges": "Session 104 — writes now go via partnerSubmitPostTripCharge callable (admin SDK, rule bypass). Direct client writes MUST fail closed.",
