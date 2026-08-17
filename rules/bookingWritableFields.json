@@ -15,7 +15,9 @@
     "ga_client_id": "attribution stitching from client",
     "ga_session_id": "attribution stitching from client",
     "ga_source": "attribution stitching from client",
-    "zoomcarConfirmationCode": "ZoomCar handoff — client writes returned confirmation"
+    "zoomcarConfirmationCode": "ZoomCar handoff — client writes returned confirmation",
+    "partnerReviewRating": "2026-08-14 Finding-#1 fix — partner-side booking-review submission via Zymo-Partner/src/pages/Bookings.tsx:823-826 handleSubmitReview. Retroactive-synced live→git as Session-131 PR #50 2026-08-17; this JSON drift caught by Chunk 17 gate on next deploy.",
+    "partnerReviewedAt": "sibling to partnerReviewRating"
   },
   "affectedKeysWhitelist": [
     "tripImages",
@@ -30,7 +32,9 @@
     "ga_client_id",
     "ga_session_id",
     "ga_source",
-    "zoomcarConfirmationCode"
+    "zoomcarConfirmationCode",
+    "partnerReviewRating",
+    "partnerReviewedAt"
   ],
   "excludedByDesign": {
     "postTripCharges": "Session 104 — writes now go via partnerSubmitPostTripCharge callable (admin SDK, rule bypass). Direct client writes MUST fail closed.",
