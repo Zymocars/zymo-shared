@@ -11,11 +11,16 @@
  *   `exports.partnerSubmitPostTripCharge` at line 297.
  */
 
+// 2026-08-15 — matched to backend VALID_CHARGE_TYPES at
+// zymo-backend/functions/triggers/partnerPostTripActions.js:57. Prior
+// shape had 'toll' + missing 'fastag' + 'challan' — backend has
+// accepted the current list since the callable shipped in Session 104.
 export type PostTripChargeType =
+  | 'fastag'
+  | 'challan'
+  | 'damage'
   | 'fuel'
   | 'cleaning'
-  | 'damage'
-  | 'toll'
   | 'other';
 
 export interface PostTripChargeInput {
