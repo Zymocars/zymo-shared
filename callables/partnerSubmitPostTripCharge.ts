@@ -16,6 +16,14 @@ export type PostTripChargeType =
   | 'cleaning'
   | 'damage'
   | 'toll'
+  // Portal (Zymo-Partner Bookings.tsx PostTripCharge interface line 187-188)
+  // exposes these two additional categories in the partner-facing UI.
+  // Included here so the shared callable-request type accepts Portal
+  // payloads. Backend Zod validator at
+  // functions/callables/partnerSubmitPostTripCharge.js should mirror this
+  // union — flagged as follow-up (backend currently rejects fastag/challan).
+  | 'fastag'
+  | 'challan'
   | 'other';
 
 export interface PostTripChargeInput {

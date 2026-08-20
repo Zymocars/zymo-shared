@@ -15,7 +15,13 @@ export type PartnerBookingAction =
   | 'start_trip'
   | 'complete_trip'
   | 'customer_no_show'
-  | 'partner_cancel';
+  | 'partner_cancel'
+  // Backend (functions/triggers/partnerBookingActions.js:113-122) also accepts
+  // these two — added to the shared type so Portal consumers (Bookings.tsx
+  // handleMarkPickedUp / handleMarkReturned) can call the callable without
+  // a type-error workaround. Superset only; existing consumers unaffected.
+  | 'mark_picked_up'
+  | 'mark_returned';
 
 export interface PartnerUpdateBookingStatusRequest {
   bookingId: string;
