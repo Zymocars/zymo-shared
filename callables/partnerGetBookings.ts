@@ -18,7 +18,10 @@ export interface PartnerBookingSummary {
   [k: string]: unknown;
 }
 
-export interface PartnerGetBookingsRequest {}
+// Empty request — server derives everything from request.auth.uid.
+// Type alias (not interface) avoids the eslint no-empty-interface rule
+// while still expressing "no payload fields expected."
+export type PartnerGetBookingsRequest = Record<string, never>;
 
 export interface PartnerGetBookingsResponse {
   bookings: PartnerBookingSummary[];
