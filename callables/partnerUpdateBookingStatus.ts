@@ -6,7 +6,7 @@
  * rejection reason string.
  *
  * Backend implementation:
- *   zymo-backend/functions/triggers/partnerBookingActions.js line 150.
+ *   zymo-backend/functions/triggers/partnerBookingActions.js line 188.
  */
 
 export type PartnerBookingAction =
@@ -21,18 +21,41 @@ export type PartnerBookingAction =
   // handleMarkPickedUp / handleMarkReturned) can call the callable without
   // a type-error workaround. Superset only; existing consumers unaffected.
   | 'mark_picked_up'
-  | 'mark_returned';
+  | 'mark_returned'
+  // 2026-08-22 pickup verification — early-return action that stamps a
+  // phase-scoped bypass ack timestamp without changing booking status.
+  // Phase is inferred server-side from current status:
+  //   accepted  → pickup bypass (writes pickupOtpBypassAcknowledgedAt)
+  //   picked_up → return bypass (writes returnOtpBypassAcknowledgedAt)
+  // 60s cooldown enforced when mark_picked_up/mark_returned with
+  // bypassOtp:true fires next.
+  | 'bypass_acknowledge';
 
 export interface PartnerUpdateBookingStatusRequest {
   bookingId: string;
   action: PartnerBookingAction;
   rejectionReason?: string;
   proofPhotoUrl?: string;
+  // 2026-08-22 pickup verification — OTP submission fields. Required by
+  // backend when booking.pickupVerificationEnabled === true AND
+  // AdminSettings/pickupVerification.enforceChecklist === true (master switch).
+  // - otp / otpVersion → required for standard OTP path on mark_picked_up + mark_returned
+  // - bypassOtp:true   → skip OTP check (requires prior bypass_acknowledge + 60s cooldown)
+  // - bypassReason     → required for both bypass_acknowledge AND mark_*_up/_returned with bypassOtp:true
+  otp?: string;
+  otpVersion?: number;
+  bypassOtp?: boolean;
+  bypassReason?: string;
 }
 
 export interface PartnerUpdateBookingStatusResponse {
   success: true;
   bookingId: string;
-  newStatus: string;
-  updatedAt: string;
+  // `newStatus` + `updatedAt` populated for status-transition actions.
+  // `bypass_acknowledge` returns `phase`, `acknowledgedAt`, `cooldownMs` instead.
+  newStatus?: string;
+  updatedAt?: string;
+  phase?: 'pickup' | 'return';
+  acknowledgedAt?: string;
+  cooldownMs?: number;
 }
