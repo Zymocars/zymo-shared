@@ -20,7 +20,12 @@
 
 export interface RegeneratePickupOtpRequest {
   bookingId: string;
-  which: 'pickup' | 'return';
+  /**
+   * Legacy field — kept optional for backward compat with the v2 (pickup +
+   * return) shape. Return-side OTP was removed 2026-08-23; backend ignores
+   * this value now. Only pickup is supported.
+   */
+  which?: 'pickup';
 }
 
 export interface RegeneratePickupOtpResponse {
