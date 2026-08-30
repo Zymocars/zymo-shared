@@ -1,7 +1,7 @@
 {
   "_description": "Zero-Bug Architecture Chunk 17 — writable-fields whitelist for CarsPaymentSuccessDetails (booking) documents. Source of truth for BOTH firestore.rules AND client-side pre-write validators. Preventing Session 104-class whitelist drift.",
-  "_provenance": "Extracted 2026-08-01 from zymo-backend/firestore.rules lines 143-180.",
-  "_ruleExtractRegex": "affectedKeys\\(\\)\\.hasOnly\\(\\[([\\s\\S]*?)\\]\\)",
+  "_provenance": "Extracted 2026-08-01 from zymo-backend/firestore.rules lines 143-180. Regex tightened 2026-08-30 (MAD 20e Item 1c) to anchor on the CarsPaymentSuccessDetails-owner check `vendorId == request.auth.uid` because Item 1c added a sibling `hasOnly([\"read\"])` in `users/{uid}/messages/{messageId}` earlier in the file and the previous lazy first-match regex would have grabbed that instead.",
+  "_ruleExtractRegex": "resource\\.data\\.vendorId == request\\.auth\\.uid[\\s\\S]*?affectedKeys\\(\\)\\.hasOnly\\(\\[([\\s\\S]*?)\\]\\)",
   "_kept_field_reason": {
     "tripImages": "client-side upload path — image URLs added post-trip",
     "Cancelled": "booking-lifecycle cancel-marker flag written from client cancel UI",
@@ -12,6 +12,7 @@
     "paymentStatus": "client reflects post-payment state — backend Cashfree webhook is authoritative",
     "paymentCompletedAt": "sibling to paymentStatus",
     "paymentId": "sibling to paymentStatus",
+    "paymentFailureMessage": "MAD 20e Item 1a 2026-08-30 — mobile Razorpay PaymentFailed/PaymentCancelled branches write diagnostic string alongside paymentStatus='cancelled' in a single .update(). Without whitelist the whole update rolled back, silently.",
     "ga_client_id": "attribution stitching from client",
     "ga_session_id": "attribution stitching from client",
     "ga_source": "attribution stitching from client",
@@ -29,6 +30,7 @@
     "paymentStatus",
     "paymentCompletedAt",
     "paymentId",
+    "paymentFailureMessage",
     "ga_client_id",
     "ga_session_id",
     "ga_source",

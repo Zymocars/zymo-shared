@@ -1,0 +1,11 @@
+{
+  "_description": "Zero-Bug Architecture Chunk 17 — writable-fields whitelist for users/{uid}/messages/{messageId} documents (Notifications inbox subcollection). Client only flips the `read` flag on read; backend Admin SDK writes new messages (rule bypass).",
+  "_provenance": "MAD Session-20e Item 1c 2026-08-30 — new subcollection rule block added to firestore.rules match /users/{userId} inner block. Client update site: may26-app-work/lib/data/api/notifications_api.dart:88-95 (markRead) + :98-111 (markAllRead) — both send set({read: true}, merge:true).",
+  "_ruleExtractRegex": "match /messages/\\{messageId\\} \\{[\\s\\S]*?affectedKeys\\(\\)\\.hasOnly\\(\\[([\\s\\S]*?)\\]\\)",
+  "_kept_field_reason": {
+    "read": "single-field mark-read flip from mobile inbox UI. Backend creates messages via Admin SDK (bypasses rules); client never creates, never deletes."
+  },
+  "affectedKeysWhitelist": [
+    "read"
+  ]
+}
