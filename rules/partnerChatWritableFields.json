@@ -1,0 +1,21 @@
+{
+  "_description": "Zero-Bug Architecture Chunk 17 — writable-fields whitelist for CarsPaymentSuccessDetails/{docId}/partnerChat/{messageId} update operations. Governs the OUTER hasOnly() safety check on read-receipt updates. The inner branch-specific hasOnly checks (customer→readAtByCustomer, partner→readAtByPartner) enforce cross-role spoofing prevention and are captured by rule semantics, not by this manifest.",
+  "_provenance": "MAD Session-20e Item 6a 2026-08-30 — new subcollection rule inside CarsPaymentSuccessDetails match block, for R3 in-app partner-customer chat. Mobile customer-side already ships (behind RC flag partner_chat_enabled default false); partner-side ships in Zymo-Partner PWA + FCM setup (Items 6b/6c) + push-fanout trigger (Item 6d); RC flag flips post 6d smoke test (Item 6e).",
+  "_ruleExtractRegex": "match /partnerChat/\\{messageId\\} \\{[\\s\\S]*?affectedKeys\\(\\)\\.hasOnly\\(\\[([\\s\\S]*?)\\]\\)",
+  "_kept_field_reason": {
+    "readAtByCustomer": "customer-side read-receipt timestamp. Only the parent booking's UserId may flip this (enforced by inner branch hasOnly). Written by messaging_screen.dart mark-read pass at :78-95 as serverTimestamp via set-merge.",
+    "readAtByPartner": "partner-side read-receipt timestamp. Only the parent booking's vendorId may flip this (enforced by inner branch hasOnly). Will be written by Zymo-Partner chat inbox UI when Item 6c ships."
+  },
+  "affectedKeysWhitelist": [
+    "readAtByCustomer",
+    "readAtByPartner"
+  ],
+  "excludedByDesign": {
+    "senderId": "immutable after create — spoofing would let a customer impersonate the partner",
+    "senderRole": "immutable after create — same reason as senderId",
+    "text": "immutable after create — message tampering vector",
+    "sentAt": "immutable after create — timeline integrity",
+    "bookingDocId": "immutable — schema-canonical parent linkage",
+    "bookingId": "immutable — schema-canonical public ID"
+  }
+}
