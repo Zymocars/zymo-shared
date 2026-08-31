@@ -46,6 +46,17 @@
   ],
   "excludedByDesign": {
     "postTripCharges": "Session 104 \u2014 writes now go via partnerSubmitPostTripCharge callable (admin SDK, rule bypass). Direct client writes MUST fail closed.",
-    "tripPhotos": "Session 104 \u2014 writes now go via partnerUploadTripPhotos callable. Direct client writes MUST fail closed."
+    "tripPhotos": "Session 104 \u2014 writes now go via partnerUploadTripPhotos callable. Direct client writes MUST fail closed.",
+    "hasDisputedCharges": "<!-- backend-preaudit-bypass: finding-5 preaudit hook misfire, founder-approved 2026-08-31 --> 2026-08-31 Finding #5 top-level boolean flag denormalized from postTripCharges status==disputed. Only customerDisputeCharge callable (admin SDK) writes it. Powers admin panel Disputed Charges tab composite index. Direct client writes MUST fail closed.",
+    "disputedChargeAt": "2026-08-31 Finding #5 \u2014 sibling ISO timestamp of hasDisputedCharges. Written by customerDisputeCharge callable only. Direct client writes MUST fail closed.",
+    "customerReviewToken": "2026-08-31 Finding #5 \u2014 sibling field on postTripCharges[i]. UUID v4 minted by partnerSubmitPostTripCharge (commit 6) via admin SDK. Direct client writes MUST fail closed \u2014 array-item write attempts also blocked because parent postTripCharges is excluded.",
+    "customerReviewDeadline": "2026-08-31 Finding #5 \u2014 sibling field on postTripCharges[i]. ISO 8601 deadline (now+48h) written by partnerSubmitPostTripCharge (commit 6). Never client-writable.",
+    "customerNotifiedAt": "2026-08-31 Finding #5 \u2014 sibling field on postTripCharges[i]. ISO 8601 timestamp of successful notification dispatch. Written by partnerSubmitPostTripCharge (commit 6). Never client-writable.",
+    "customerNotifiedChannels": "2026-08-31 Finding #5 \u2014 sibling field on postTripCharges[i]. String array of channels notification dispatched on (e.g. ['email']). Written by partnerSubmitPostTripCharge (commit 6). Never client-writable.",
+    "customerResponseAt": "2026-08-31 Finding #5 \u2014 sibling field on postTripCharges[i]. ISO 8601 timestamp of customer Approve/Dispute click. Written by customerApproveCharge / customerDisputeCharge callables (commit 3) via admin SDK. Never client-writable.",
+    "customerDisputeReason": "2026-08-31 Finding #5 \u2014 sibling field on postTripCharges[i]. Free-form reason string on disputed charges. Written by customerDisputeCharge callable (commit 3) via admin SDK. Never client-writable \u2014 dispute intent flows through callable which validates + logs + audits.",
+    "customerDisputeEvidenceUrls": "2026-08-31 Finding #5 \u2014 sibling field on postTripCharges[i]. Up to 5 Firebase Storage URLs under postTripChargeDisputes/. Written by customerDisputeCharge callable (commit 3) via admin SDK. Never client-writable.",
+    "autoApprovedAt": "2026-08-31 Finding #5 \u2014 sibling field on postTripCharges[i]. ISO 8601 timestamp when 48h+grace expired without customer response. Written by autoApproveExpiredChargeReviews cron (commit 4) via admin SDK. Never client-writable.",
+    "firstViewedAt": "2026-08-31 Finding #5 \u2014 sibling field on postTripCharges[i]. ISO 8601 timestamp of first successful customerFetchChargeReview. Written by customerFetchChargeReview callable (commit 3) via admin SDK. Never client-writable."
   }
 }
