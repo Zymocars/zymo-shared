@@ -1,24 +1,27 @@
 {
-  "_description": "Zero-Bug Architecture Chunk 17 — writable-fields whitelist for CarsPaymentSuccessDetails (booking) documents. Source of truth for BOTH firestore.rules AND client-side pre-write validators. Preventing Session 104-class whitelist drift.",
+  "_description": "Zero-Bug Architecture Chunk 17 \u2014 writable-fields whitelist for CarsPaymentSuccessDetails (booking) documents. Source of truth for BOTH firestore.rules AND client-side pre-write validators. Preventing Session 104-class whitelist drift.",
   "_provenance": "Extracted 2026-08-01 from zymo-backend/firestore.rules lines 143-180. Regex tightened 2026-08-30 (MAD 20e Item 1c) to anchor on the CarsPaymentSuccessDetails-owner check `vendorId == request.auth.uid` because Item 1c added a sibling `hasOnly([\"read\"])` in `users/{uid}/messages/{messageId}` earlier in the file and the previous lazy first-match regex would have grabbed that instead.",
   "_ruleExtractRegex": "resource\\.data\\.vendorId == request\\.auth\\.uid[\\s\\S]*?affectedKeys\\(\\)\\.hasOnly\\(\\[([\\s\\S]*?)\\]\\)",
   "_kept_field_reason": {
-    "tripImages": "client-side upload path — image URLs added post-trip",
+    "tripImages": "client-side upload path \u2014 image URLs added post-trip",
     "Cancelled": "booking-lifecycle cancel-marker flag written from client cancel UI",
     "CancellationDate": "sibling to Cancelled",
-    "UserId": "self-owner enforcement — must match request.auth.uid",
+    "UserId": "self-owner enforcement \u2014 must match request.auth.uid",
     "MigratedFrom": "one-time migration marker",
     "MigratedAt": "one-time migration marker",
-    "paymentStatus": "client reflects post-payment state — backend Cashfree webhook is authoritative",
+    "paymentStatus": "client reflects post-payment state \u2014 backend Cashfree webhook is authoritative",
     "paymentCompletedAt": "sibling to paymentStatus",
     "paymentId": "sibling to paymentStatus",
-    "paymentFailureMessage": "MAD 20e Item 1a 2026-08-30 — mobile Razorpay PaymentFailed/PaymentCancelled branches write diagnostic string alongside paymentStatus='cancelled' in a single .update(). Without whitelist the whole update rolled back, silently.",
+    "paymentFailureMessage": "MAD 20e Item 1a 2026-08-30 \u2014 mobile Razorpay PaymentFailed/PaymentCancelled branches write diagnostic string alongside paymentStatus='cancelled' in a single .update(). Without whitelist the whole update rolled back, silently.",
     "ga_client_id": "attribution stitching from client",
     "ga_session_id": "attribution stitching from client",
     "ga_source": "attribution stitching from client",
-    "zoomcarConfirmationCode": "ZoomCar handoff — client writes returned confirmation",
-    "partnerReviewRating": "2026-08-14 Finding-#1 fix — partner-side booking-review submission via Zymo-Partner/src/pages/Bookings.tsx:823-826 handleSubmitReview. Retroactive-synced live→git as Session-131 PR #50 2026-08-17; this JSON drift caught by Chunk 17 gate on next deploy.",
-    "partnerReviewedAt": "sibling to partnerReviewRating"
+    "zoomcarConfirmationCode": "ZoomCar handoff \u2014 client writes returned confirmation",
+    "partnerReviewRating": "2026-08-14 Finding-#1 fix \u2014 partner-side booking-review submission via Zymo-Partner/src/pages/Bookings.tsx:823-826 handleSubmitReview. Retroactive-synced live\u2192git as Session-131 PR #50 2026-08-17; this JSON drift caught by Chunk 17 gate on next deploy.",
+    "partnerReviewedAt": "sibling to partnerReviewRating",
+    "origin_channel": "Phase 1 attribution router (2026-08-31) \u2014 client stamps 'web'|'android'|'ios' on setDoc merge at zymo-web/src/hooks/useBookingSave.ts:500. Backend Cashfree receiver (Gap #1) also writes via admin SDK; whitelisting client write is defense-in-depth so the LEAN fast-path browser merge succeeds without silent rules rejection. Read by measurementRouter.js to route GA4 emission.",
+    "booking_session_id": "Phase 1 attribution router (2026-08-31) \u2014 stable per-browser booking-attempt id set by client at bookingAnalytics.ts:23-45. Attribution metadata; no security surface.",
+    "app_instance_id": "Phase 1 attribution router (2026-08-31) \u2014 GA4 native app_instance_id (mobile only; web always null). Read by measurementRouter.js for future native stream routing."
   },
   "affectedKeysWhitelist": [
     "tripImages",
@@ -34,12 +37,15 @@
     "ga_client_id",
     "ga_session_id",
     "ga_source",
+    "origin_channel",
+    "booking_session_id",
+    "app_instance_id",
     "zoomcarConfirmationCode",
     "partnerReviewRating",
     "partnerReviewedAt"
   ],
   "excludedByDesign": {
-    "postTripCharges": "Session 104 — writes now go via partnerSubmitPostTripCharge callable (admin SDK, rule bypass). Direct client writes MUST fail closed.",
-    "tripPhotos": "Session 104 — writes now go via partnerUploadTripPhotos callable. Direct client writes MUST fail closed."
+    "postTripCharges": "Session 104 \u2014 writes now go via partnerSubmitPostTripCharge callable (admin SDK, rule bypass). Direct client writes MUST fail closed.",
+    "tripPhotos": "Session 104 \u2014 writes now go via partnerUploadTripPhotos callable. Direct client writes MUST fail closed."
   }
 }
