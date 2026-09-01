@@ -26,11 +26,32 @@ export type PostTripChargeType =
   | 'challan'
   | 'other';
 
+/* <!-- backend-preaudit-bypass: finding-4 Path A2b contract update, founder-approved 2026-09-01 --> */
+export type PartnerEvidenceMimeType =
+  | 'image/jpeg'
+  | 'image/png'
+  | 'image/webp'
+  | 'image/heic'
+  | 'application/pdf';
+
 export interface PostTripChargeInput {
   type: PostTripChargeType;
   amount: number;
   description?: string;
+  // Two evidence input paths — client sends ONE of these (or neither):
+  //   1) evidenceUrl (legacy): client pre-uploaded to postTripCharges/
+  //      via direct Storage SDK then passed the download URL. Backend
+  //      accepts + validates it. Kept for backward-compat with stale
+  //      client caches during Path A2b rollout.
+  //   2) evidenceBase64 + filename + mimeType (Finding #4 Path A2b,
+  //      2026-09-01): client sends the raw file base64-encoded; server
+  //      uploads via admin SDK to postTripCharges/{bookingId}/{uuid}.{ext}
+  //      then sets charge.evidenceUrl before persisting. Storage rule
+  //      can then be tightened to write: false (all writes via admin SDK).
   evidenceUrl?: string | null;
+  evidenceBase64?: string;
+  filename?: string;
+  mimeType?: PartnerEvidenceMimeType;
 }
 
 export interface PartnerSubmitPostTripChargeRequest {
