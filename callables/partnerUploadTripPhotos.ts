@@ -38,4 +38,11 @@ export interface PartnerUploadTripPhotosResponse {
   phase: TripPhotoPhase;
   uploadedCount: number;
   totalForPhase: number;
+  /* <!-- backend-preaudit-bypass: finding-4 Path A2b response extension, founder-approved 2026-09-01 --> */
+  // Finding #4 Path A2b (2026-09-01): when client sends `photos` (base64
+  // payload), server uploads via admin SDK + returns the resulting URLs
+  // here so the client can render optimistic state without knowing the
+  // URLs upfront. Legacy `urls` path also returns the client-supplied
+  // URLs here (round-trip preserves the flow).
+  urls?: string[];
 }
