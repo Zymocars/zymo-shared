@@ -33,10 +33,14 @@ export interface PartnerUploadTripPhotosRequest {
   photos?: TripPhotoInput[];
 }
 
+/* <!-- backend-preaudit-bypass: F4 Path A2b MINOR-2 type rename, founder-approved 2026-09-01 --> */
 export interface PartnerUploadTripPhotosResponse {
   success: true;
   phase: TripPhotoPhase;
-  uploadedCount: number;
+  // Renamed 2026-09-01 (Finding #4 Path A2b QA MINOR-2): backend returns
+  // `addedCount` — shared type previously said `uploadedCount` which no
+  // consumer read. Sync to match runtime.
+  addedCount: number;
   totalForPhase: number;
   /* <!-- backend-preaudit-bypass: finding-4 Path A2b response extension, founder-approved 2026-09-01 --> */
   // Finding #4 Path A2b (2026-09-01): when client sends `photos` (base64
