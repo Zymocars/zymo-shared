@@ -58,4 +58,12 @@ export interface PartnerUpdateBookingStatusResponse {
   phase?: 'pickup' | 'return';
   acknowledgedAt?: string;
   cooldownMs?: number;
+  // Session 166 Sprint 1 H16 — on `accept`, if pickup verification enrolled,
+  // backend returns these so frontend can merge into local booking cache.
+  // Without them, next handleMarkPickedUp reads stale
+  // pickupVerificationEnabled=undefined → skips OTP modal → backend rejects.
+  customerPhone?: string | null;
+  customerEmail?: string | null;
+  pickupVerificationEnabled?: boolean;
+  pickupOtpVersion?: number;
 }
