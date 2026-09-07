@@ -21,7 +21,12 @@
     "partnerReviewedAt": "sibling to partnerReviewRating",
     "origin_channel": "Phase 1 attribution router (2026-08-31) \u2014 client stamps 'web'|'android'|'ios' on setDoc merge at zymo-web/src/hooks/useBookingSave.ts:500. Backend Cashfree receiver (Gap #1) also writes via admin SDK; whitelisting client write is defense-in-depth so the LEAN fast-path browser merge succeeds without silent rules rejection. Read by measurementRouter.js to route GA4 emission.",
     "booking_session_id": "Phase 1 attribution router (2026-08-31) \u2014 stable per-browser booking-attempt id set by client at bookingAnalytics.ts:23-45. Attribution metadata; no security surface.",
-    "app_instance_id": "Phase 1 attribution router (2026-08-31) \u2014 GA4 native app_instance_id (mobile only; web always null). Read by measurementRouter.js for future native stream routing."
+    "app_instance_id": "Phase 1 attribution router (2026-08-31) \u2014 GA4 native app_instance_id (mobile only; web always null). Read by measurementRouter.js for future native stream routing.",
+    "_session_35_bypass": "<!-- backend-preaudit-bypass: paired with firestore.rules P0 fix same turn, Manish approved Option B, Session 21 client-authority contract per DECISIONS.md -->",
+    "zoomcarPaymentConfirmed": "Session 35 (2026-09-07) \u2014 Cashfree ZoomCar post-confirm chain stamp per Session 21 (2026-08-30 DECISIONS.md) client-authority contract. may26-app-work/lib/features/booking/zoomcar_booking_flow.dart:920-925 writes false\u2192true after 3-retry paymentCreation + paymentUpdate ZoomCar-side confirm succeeds. Value-constrained on UPDATE: strict false\u2192true, no reset. Fires carPaymentTriggers.sendEmailOnPaymentComplete gated on this flag for exactly-once customer email.",
+    "zoomcarBookingStatus": "Session 35 (2026-09-07) \u2014 sibling to zoomcarPaymentConfirmed; client stamps 'completed' after confirm chain succeeds.",
+    "zoomcarPaymentId": "Session 35 (2026-09-07) \u2014 ZoomCar-side paymentCreationId returned from ZoomCar API; client-reported reconciliation reference.",
+    "zoomcarConfirmedAt": "Session 35 (2026-09-07) \u2014 serverTimestamp() at post-confirm-chain success; audit marker for when client-authority confirm landed."
   },
   "affectedKeysWhitelist": [
     "tripImages",
@@ -42,7 +47,11 @@
     "app_instance_id",
     "zoomcarConfirmationCode",
     "partnerReviewRating",
-    "partnerReviewedAt"
+    "partnerReviewedAt",
+    "zoomcarPaymentConfirmed",
+    "zoomcarBookingStatus",
+    "zoomcarPaymentId",
+    "zoomcarConfirmedAt"
   ],
   "excludedByDesign": {
     "postTripCharges": "Session 104 \u2014 writes now go via partnerSubmitPostTripCharge callable (admin SDK, rule bypass). Direct client writes MUST fail closed.",
