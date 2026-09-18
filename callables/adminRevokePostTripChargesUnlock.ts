@@ -5,7 +5,7 @@
  * Rejects if unlock is already consumed or already revoked.
  *
  * Backend implementation:
- *   zymo-backend/functions/triggers/partnerPostTripActions.js line 639.
+ *   `exports.adminRevokePostTripChargesUnlock` in zymo-backend/functions/triggers/partnerPostTripActions.js.
  */
 
 export interface AdminRevokePostTripChargesUnlockRequest {

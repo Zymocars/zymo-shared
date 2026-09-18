@@ -6,7 +6,7 @@
  * from AdminSettings — never trusts a caller flag (2026-07-26 audit finding).
  *
  * Backend implementation:
- *   zymo-backend/functions/triggers/monthlyCancelV2Callables.js line 302.
+ *   `exports.adminRollbackMonthlyCancel` in zymo-backend/functions/triggers/monthlyCancelV2Callables.js.
  */
 
 export interface AdminRollbackMonthlyCancelRequest {

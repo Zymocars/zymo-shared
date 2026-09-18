@@ -7,8 +7,7 @@
  * not import these types but MUST keep the runtime shape in sync.
  *
  * Backend implementation:
- *   zymo-backend/functions/triggers/partnerPostTripActions.js
- *   `exports.partnerSubmitPostTripCharge` at line 297.
+ *   `exports.partnerSubmitPostTripCharge` in zymo-backend/functions/triggers/partnerPostTripActions.js.
  */
 
 export type PostTripChargeType =
@@ -16,12 +15,9 @@ export type PostTripChargeType =
   | 'cleaning'
   | 'damage'
   | 'toll'
-  // Portal (Zymo-Partner Bookings.tsx PostTripCharge interface line 187-188)
-  // exposes these two additional categories in the partner-facing UI.
-  // Included here so the shared callable-request type accepts Portal
-  // payloads. Backend Zod validator at
-  // functions/callables/partnerSubmitPostTripCharge.js should mirror this
-  // union — flagged as follow-up (backend currently rejects fastag/challan).
+  // The backend accepts the types listed in VALID_CHARGE_TYPES in
+  // zymo-backend/functions/triggers/partnerPostTripActions.js; a value in
+  // this union that is missing there is refused with invalid-argument.
   | 'fastag'
   | 'challan'
   | 'other';

@@ -6,7 +6,7 @@
  * bookings (returns `aborted_live_bookings` in the per-uid result).
  *
  * Backend implementation:
- *   zymo-backend/functions/triggers/deleteaccounts.js line 17.
+ *   `exports.deleteDuplicateAccounts` in zymo-backend/functions/triggers/deleteaccounts.js.
  */
 
 export type DeleteDuplicateAccountsPerUidKind =

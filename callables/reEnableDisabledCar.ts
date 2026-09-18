@@ -5,7 +5,7 @@
  * auto-disable. Requires all 5 attestation questions answered `true`.
  *
  * Backend implementation:
- *   zymo-backend/functions/triggers/monthlyCancelV2Callables.js line 46.
+ *   `exports.reEnableDisabledCar` in zymo-backend/functions/triggers/monthlyCancelV2Callables.js.
  */
 
 export interface ReEnableDisabledCarQuestionnaire {

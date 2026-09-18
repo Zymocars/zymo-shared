@@ -5,7 +5,7 @@
  * daily cron AND the enabled flag. Reason min 3 chars.
  *
  * Backend implementation:
- *   zymo-backend/functions/triggers/rejectedCarCleanupScheduler.js line 161.
+ *   `adminRunRejectedCarCleanupNow` in zymo-backend/functions/triggers/rejectedCarCleanupScheduler.js.
  */
 
 export interface AdminRunRejectedCarCleanupNowRequest {

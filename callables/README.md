@@ -8,28 +8,29 @@ in sync.
 
 ## Migration status (20 total callables — 20/20 complete)
 
-| Callable | Backend file:line | TS types |
+| Callable | Backend file (under `zymo-backend/functions/`) | TS types |
 |---|---|---|
-| partnerSubmitPostTripCharge | partnerPostTripActions.js:297 | ✅ partnerSubmitPostTripCharge.ts |
-| partnerDeletePostTripCharge | partnerPostTripActions.js:393 | ✅ partnerDeletePostTripCharge.ts |
-| partnerUploadTripPhotos | partnerPostTripActions.js:443 | ✅ partnerUploadTripPhotos.ts |
-| partnerRequestPayout | partnerRequestPayout.js:42 | ✅ partnerRequestPayout.ts |
-| partnerGetBookings | partnerGetBookings.js:25 | ✅ partnerGetBookings.ts |
-| adminUnlockPostTripCharges | partnerPostTripActions.js:517 | ✅ adminUnlockPostTripCharges.ts |
-| adminRevokePostTripChargesUnlock | partnerPostTripActions.js:639 | ✅ adminRevokePostTripChargesUnlock.ts |
-| partnerUpdateBookingStatus | partnerBookingActions.js:150 | ✅ partnerUpdateBookingStatus.ts |
-| ChatWithGeminiv2 | triggers-chatbot/ChatWithGeminiv2.js:1436 | ✅ ChatWithGeminiv2.ts |
-| submitChatFeedback | triggers-chatbot/ChatWithGeminiv2.js:2419 | ✅ submitChatFeedback.ts |
-| permanentDeletePartner | permanentDeletePartner.js:19 | ✅ permanentDeletePartner.ts |
-| reEnableDisabledCar | monthlyCancelV2Callables.js:46 | ✅ reEnableDisabledCar.ts |
-| adminPermanentlyBlockPartner | monthlyCancelV2Callables.js:89 | ✅ adminPermanentlyBlockPartner.ts |
-| unblockVehicleRC | monthlyCancelV2Callables.js:191 | ✅ unblockVehicleRC.ts |
-| adminForceReEnableCar | monthlyCancelV2Callables.js:243 | ✅ adminForceReEnableCar.ts |
-| adminForceLifetimeResetCar | monthlyCancelV2Callables.js:270 | ✅ adminForceLifetimeResetCar.ts |
-| adminRollbackMonthlyCancel | monthlyCancelV2Callables.js:302 | ✅ adminRollbackMonthlyCancel.ts |
-| deleteDuplicateAccounts | deleteaccounts.js:17 | ✅ deleteDuplicateAccounts.ts |
-| adminSetRejectedCarCleanupEnabled | rejectedCarCleanupScheduler.js:123 | ✅ adminSetRejectedCarCleanupEnabled.ts |
-| adminRunRejectedCarCleanupNow | rejectedCarCleanupScheduler.js:161 | ✅ adminRunRejectedCarCleanupNow.ts |
+| partnerSubmitPostTripCharge | `triggers/partnerPostTripActions.js` | ✅ partnerSubmitPostTripCharge.ts |
+| partnerDeletePostTripCharge | `triggers/partnerPostTripActions.js` | ✅ partnerDeletePostTripCharge.ts |
+| partnerUploadTripPhotos | `triggers/partnerPostTripActions.js` | ✅ partnerUploadTripPhotos.ts |
+| partnerRequestPayout | `triggers/partnerRequestPayout.js` | ✅ partnerRequestPayout.ts |
+| partnerGetBookings | `triggers/partnerGetBookings.js` | ✅ partnerGetBookings.ts |
+| adminUnlockPostTripCharges | `triggers/partnerPostTripActions.js` | ✅ adminUnlockPostTripCharges.ts |
+| adminRevokePostTripChargesUnlock | `triggers/partnerPostTripActions.js` | ✅ adminRevokePostTripChargesUnlock.ts |
+| partnerUpdateBookingStatus | `triggers/partnerBookingActions.js` | ✅ partnerUpdateBookingStatus.ts |
+| ChatWithGeminiv2 | `chatbot/channels/chatCallable.js` | ✅ ChatWithGeminiv2.ts |
+| submitChatFeedback | `chatbot/channels/chatCallable.js` | ✅ submitChatFeedback.ts |
+| permanentDeletePartner | `triggers/permanentDeletePartner.js` | ✅ permanentDeletePartner.ts |
+| reEnableDisabledCar | `triggers/monthlyCancelV2Callables.js` | ✅ reEnableDisabledCar.ts |
+| adminPermanentlyBlockPartner | `triggers/monthlyCancelV2Callables.js` | ✅ adminPermanentlyBlockPartner.ts |
+| unblockVehicleRC | `triggers/monthlyCancelV2Callables.js` | ✅ unblockVehicleRC.ts |
+| adminForceReEnableCar | `triggers/monthlyCancelV2Callables.js` | ✅ adminForceReEnableCar.ts |
+| adminForceLifetimeResetCar | `triggers/monthlyCancelV2Callables.js` | ✅ adminForceLifetimeResetCar.ts |
+| adminRollbackMonthlyCancel | `triggers/monthlyCancelV2Callables.js` | ✅ adminRollbackMonthlyCancel.ts |
+| deleteDuplicateAccounts | `triggers/deleteaccounts.js` | ✅ deleteDuplicateAccounts.ts |
+| adminSetRejectedCarCleanupEnabled | `triggers/rejectedCarCleanupScheduler.js` | ✅ adminSetRejectedCarCleanupEnabled.ts |
+| adminRunRejectedCarCleanupNow | `triggers/rejectedCarCleanupScheduler.js` | ✅ adminRunRejectedCarCleanupNow.ts |
 
-Enumerated + fully migrated 2026-08-01. Update this table whenever a callable
-is added, removed, or renamed in `zymo-backend/functions/`.
+Update this table whenever a callable is added, removed, renamed or moved in
+`zymo-backend/functions/`. Name the file only — line numbers go stale on the
+next edit. Each file defines the callable under its own name.

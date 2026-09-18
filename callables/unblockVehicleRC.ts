@@ -5,7 +5,7 @@
  * unblock. Rejects entries flagged `allowAdminUnblock=false`.
  *
  * Backend implementation:
- *   zymo-backend/functions/triggers/monthlyCancelV2Callables.js line 191.
+ *   `exports.unblockVehicleRC` in zymo-backend/functions/triggers/monthlyCancelV2Callables.js.
  */
 
 export interface UnblockVehicleRCRequest {

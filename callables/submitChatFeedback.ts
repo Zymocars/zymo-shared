@@ -5,7 +5,7 @@
  * increments daily aggregate counter under chatbot_analytics/daily/stats.
  *
  * Backend implementation:
- *   zymo-backend/functions/triggers-chatbot/ChatWithGeminiv2.js line 2419.
+ *   `exports.submitChatFeedback` in zymo-backend/functions/chatbot/channels/chatCallable.js.
  */
 
 export type ChatFeedbackValue = 'positive' | 'negative';

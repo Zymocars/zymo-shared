@@ -2,7 +2,7 @@
  * Callable: partnerUploadTripPhotos
  *
  * Backend implementation:
- *   zymo-backend/functions/triggers/partnerPostTripActions.js line 443.
+ *   `exports.partnerUploadTripPhotos` in zymo-backend/functions/triggers/partnerPostTripActions.js.
  *
  * URLs must be Firebase Storage URLs (validated server-side).
  */

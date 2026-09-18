@@ -5,7 +5,7 @@
  * it if disabled).
  *
  * Backend implementation:
- *   zymo-backend/functions/triggers/monthlyCancelV2Callables.js line 270.
+ *   `exports.adminForceLifetimeResetCar` in zymo-backend/functions/triggers/monthlyCancelV2Callables.js.
  */
 
 export interface AdminForceLifetimeResetCarRequest {

@@ -6,7 +6,7 @@
  * response and persists to chathistory/{userId}/messages/{messageId}.
  *
  * Backend implementation:
- *   zymo-backend/functions/triggers-chatbot/ChatWithGeminiv2.js line 1436.
+ *   `exports.ChatWithGeminiv2` in zymo-backend/functions/chatbot/channels/chatCallable.js.
  */
 
 export interface ChatWithGeminiv2Request {

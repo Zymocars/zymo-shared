@@ -6,7 +6,7 @@
  * Idempotent — safe to re-invoke for the same uid.
  *
  * Backend implementation:
- *   zymo-backend/functions/triggers/monthlyCancelV2Callables.js line 89.
+ *   `exports.adminPermanentlyBlockPartner` in zymo-backend/functions/triggers/monthlyCancelV2Callables.js.
  */
 
 export interface AdminPermanentlyBlockPartnerRequest {
