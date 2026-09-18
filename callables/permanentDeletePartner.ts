@@ -6,7 +6,7 @@
  * if source is already archived.
  *
  * Backend implementation:
- *   zymo-backend/functions/triggers/permanentDeletePartner.js line 19.
+ *   `exports.permanentDeletePartner` in zymo-backend/functions/triggers/permanentDeletePartner.js.
  */
 
 export interface PermanentDeletePartnerRequest {

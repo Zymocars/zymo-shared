@@ -5,7 +5,7 @@
  * post-trip charge on a settled booking. Rejects duplicate active unlocks.
  *
  * Backend implementation:
- *   zymo-backend/functions/triggers/partnerPostTripActions.js line 517.
+ *   `exports.adminUnlockPostTripCharges` in zymo-backend/functions/triggers/partnerPostTripActions.js.
  */
 
 export interface AdminUnlockPostTripChargesRequest {

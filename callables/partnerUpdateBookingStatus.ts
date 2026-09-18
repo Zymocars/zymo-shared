@@ -6,7 +6,7 @@
  * rejection reason string.
  *
  * Backend implementation:
- *   zymo-backend/functions/triggers/partnerBookingActions.js line 188.
+ *   `exports.partnerUpdateBookingStatus` in zymo-backend/functions/triggers/partnerBookingActions.js.
  */
 
 export type PartnerBookingAction =
@@ -16,19 +16,14 @@ export type PartnerBookingAction =
   | 'complete_trip'
   | 'customer_no_show'
   | 'partner_cancel'
-  // Backend (functions/triggers/partnerBookingActions.js:113-122) also accepts
-  // these two — added to the shared type so Portal consumers (Bookings.tsx
-  // handleMarkPickedUp / handleMarkReturned) can call the callable without
-  // a type-error workaround. Superset only; existing consumers unaffected.
+  // The backend accepts the actions listed in VALID_ACTIONS in
+  // zymo-backend/functions/triggers/partnerBookingActions.js; a value in
+  // this union that is missing there is refused with invalid-argument.
   | 'mark_picked_up'
   | 'mark_returned'
-  // 2026-08-22 pickup verification — early-return action that stamps a
-  // phase-scoped bypass ack timestamp without changing booking status.
-  // Phase is inferred server-side from current status:
-  //   accepted  → pickup bypass (writes pickupOtpBypassAcknowledgedAt)
-  //   picked_up → return bypass (writes returnOtpBypassAcknowledgedAt)
-  // 60s cooldown enforced when mark_picked_up/mark_returned with
-  // bypassOtp:true fires next.
+  // Stamps pickupOtpBypassAcknowledgedAt without changing booking status.
+  // Valid only on an accepted booking enrolled in pickup verification; the
+  // cooldown applies when mark_picked_up with bypassOtp:true fires next.
   | 'bypass_acknowledge';
 
 export interface PartnerUpdateBookingStatusRequest {

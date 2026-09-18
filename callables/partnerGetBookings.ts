@@ -2,7 +2,7 @@
  * Callable: partnerGetBookings
  *
  * Backend implementation:
- *   zymo-backend/functions/triggers/partnerGetBookings.js line 34.
+ *   `exports.partnerGetBookings` in zymo-backend/functions/triggers/partnerGetBookings.js.
  *
  * Returns all bookings assigned to the calling partner (via request.auth.uid).
  * Pending-status bookings have contact info redacted server-side; Firestore

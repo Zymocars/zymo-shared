@@ -5,7 +5,7 @@
  * partner-attestation questionnaire path.
  *
  * Backend implementation:
- *   zymo-backend/functions/triggers/monthlyCancelV2Callables.js line 243.
+ *   `exports.adminForceReEnableCar` in zymo-backend/functions/triggers/monthlyCancelV2Callables.js.
  */
 
 export interface AdminForceReEnableCarRequest {
