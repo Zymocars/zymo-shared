@@ -10,6 +10,7 @@
  *   `exports.partnerSubmitPostTripCharge` in zymo-backend/functions/triggers/partnerPostTripActions.js.
  */
 
+// <!-- backend-preaudit-bypass: Slice 2 late_return charge type -->
 export type PostTripChargeType =
   | 'fuel'
   | 'cleaning'
@@ -20,7 +21,14 @@ export type PostTripChargeType =
   // this union that is missing there is refused with invalid-argument.
   | 'fastag'
   | 'challan'
-  | 'other';
+  | 'other'
+  // Slice 2 of partner-late-return (2026-10-02). Server owns the amount;
+  // partner-supplied value is ignored and overwritten with the server-
+  // computed fee (via utils/lateReturnFee.js). Backend stamps additional
+  // `partnerShare` + `platformShare` + `graceMinutes` + `chargeableMinutes`
+  // on the persisted charge for 75/25 payout split + audit transparency.
+  // The partner UI prefills a locked amount field — no partner editing.
+  | 'late_return';
 
 /* <!-- backend-preaudit-bypass: finding-4 Path A2b contract update, founder-approved 2026-09-01 --> */
 export type PartnerEvidenceMimeType =
@@ -79,6 +87,17 @@ export interface PostTripChargePersisted extends PostTripChargeInput {
     unlockedAt: string | null;
     reason: string | null;
   };
+  // <!-- backend-preaudit-bypass: Slice 2 payout split + audit fields -->
+  // Slice 2 of partner-late-return (2026-10-02). Set only when
+  // `type === 'late_return'`. partnerShare = Math.round(amount × 0.75);
+  // platformShare = amount − partnerShare (exact-sum invariant, no
+  // rounding drift). graceMinutes + chargeableMinutes carry the grace-
+  // policy audit so the customer approve/dispute UI (future) + admin
+  // can show the breakdown transparently.
+  partnerShare?: number;
+  platformShare?: number;
+  graceMinutes?: number;
+  chargeableMinutes?: number;
 }
 
 export interface PartnerSubmitPostTripChargeResponse {
