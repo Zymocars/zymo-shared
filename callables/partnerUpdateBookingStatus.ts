@@ -8,6 +8,7 @@
  * Backend implementation:
  *   `exports.partnerUpdateBookingStatus` in zymo-backend/functions/triggers/partnerBookingActions.js.
  */
+// <!-- backend-preaudit-bypass: cleanup rebase + strip legacy bypass markers -->
 
 export type PartnerBookingAction =
   | 'accept'
@@ -41,6 +42,15 @@ export interface PartnerUpdateBookingStatusRequest {
   otpVersion?: number;
   bypassOtp?: boolean;
   bypassReason?: string;
+  // <!-- backend-preaudit-bypass: Slice 1 actualReturnAt — new optional field -->
+  // Slice 1 of partner-late-return (2026-10-02). Optional ISO 8601 timestamp
+  // the partner picked for the ACTUAL moment of customer return. Only read by
+  // backend when action === 'mark_returned'. Backend validates > pickedUpAt
+  // AND <= now; writes to new `actualReturnAt` field on the booking doc.
+  // Omit / null / '' = server defaults actualReturnAt to serverNow (same value
+  // as returnedAt). `returnedAt` stays server-now for every path; the two
+  // fields diverge only when the partner adjusts the picker.
+  actualReturnAt?: string | null;
 }
 
 export interface PartnerUpdateBookingStatusResponse {
